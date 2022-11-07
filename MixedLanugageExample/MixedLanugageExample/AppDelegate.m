@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+@import TelemetryClient;
 
 @interface AppDelegate ()
 
@@ -16,7 +17,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    TelemetryManagerConfiguration *telemetryConfig = [[TelemetryManagerConfiguration alloc] initWithAppID:@"YOUR-APP-ID"];
+    [TelemetryManager initializeWith:telemetryConfig];
+
+    // ...
+
+    [TelemetryManager updateDefaultUserTo:@"winsmith@winsmith.de"];
+
+    [TelemetryManager send:@"applicationDidFinishLaunching"];
+
+    [TelemetryManager send:@"applicationDidFinishLaunching" with:@{@"isObjectiveC": @"yes"}];
     return YES;
 }
 
